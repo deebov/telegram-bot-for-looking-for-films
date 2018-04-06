@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "mongoose": "^5.0.13",
     "node-telegram-bot-api": "^0.30.0"
   },
   "devDependencies": {},

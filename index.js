@@ -1,20 +1,53 @@
 const TelegaBot = require('node-telegram-bot-api'),
-  helpers = require('./helpers');
-  TOKEN = '461731945:AAGTwT73_mwd1Pdc8nH_3ApTzv79nrhwyAY';
+  mongoose = require('mongoose'),
+  database = require('./database.json'),
+  helper = require('./helper'),
+  config = require('./config'),
+  keyboard = require('./keyboard'),
+  kb = require('./keyboard-buttons');
 
-const bot = new TelegaBot(TOKEN, {
-  polling: true,
-  interval: 300,
-  autoStart: true,
-  params: {
-    timeout: 10
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.DB_URL, {
+  useMongoClient: true
+})
+  .then(() => console.log('MongoDB has been connected'))
+  .catch(err => console.log(err));
+require('./models/film.model');
+const Film = mongoose.model('films');
+database.films.forEach(f => new Film(f).save());
+
+const bot = new TelegaBot( config.TOKEN, {
+  polling: true
+});
+
+bot.on( 'message', msg => {
+
+  const chatId = msg.chat.id;
+
+  switch ( msg.text ) {
+    case kb.home.films:
+      bot.sendMessage( chatId, 'Выберите жанр:', {
+        reply_markup: { keyboard: keyboard.films }
+      })
+      break;
+    case kb.home.favourite:
+      break;
+    case kb.home.cinemas:
+      break;
+    case kb.back:
+      bot.sendMessage( chatId, 'Назад', {
+        reply_markup: { keyboard: keyboard.home }
+      })
+      break;
   }
 });
 
-bot.on('message', msg => {
-  if(msg.text.toLowerCase() === 'hi'){
-    bot.sendMessage(msg.chat.id, `Hi ${msg.from.first_name} ! Sosi xuy!`);
-  } else {
-    bot.sendMessage(msg.chat.id, helpers(msg));
-  }
-});
+bot.onText( /\/start/, msg => {
+  const text = `Здравствуйте, ${msg.from.first_name}`;
+  bot.sendMessage( msg.chat.id, text, {
+    reply_markup:{
+      keyboard: keyboard.home
+    }
+  })
+})
