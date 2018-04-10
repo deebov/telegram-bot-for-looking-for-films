@@ -9,5 +9,9 @@ module.exports = {
     [kb.films.random],
     [kb.films.action, kb.films.comedy],
     [kb.back]
+  ],
+  cinemas: [
+    kb.cinemas.sendLocation,
+    [kb.back]
   ]
 }

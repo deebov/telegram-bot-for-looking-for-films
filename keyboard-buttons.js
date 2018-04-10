@@ -9,5 +9,13 @@ module.exports = {
     action: 'Экшн',
     comedy: 'Комедия'
   },
+  cinemas: {
+    sendLocation: [
+      {
+        text: 'Отправить местоположение',
+        request_location: true
+      }
+    ]
+  },
   back: 'Назад'
 }
