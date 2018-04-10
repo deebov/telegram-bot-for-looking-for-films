@@ -9,7 +9,6 @@ const TelegaBot = require('node-telegram-bot-api'),
   geolib = require('geolib'),
   _ = require('lodash'),
   database = require('./database.json'),
-  helper = require('./helper'),
   config = require('./config'),
   keyboard = require('./keyboard'),
   kb = require('./keyboard-buttons');
