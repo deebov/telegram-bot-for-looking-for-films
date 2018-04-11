@@ -37,8 +37,8 @@ const ACTION_TYPE = {
 }
 
 // Setting data
-database.films.forEach(f => new Film(f).save());
-database.cinemas.forEach(c => new Cinema(c).save());
+// database.films.forEach(f => new Film(f).save());
+// database.cinemas.forEach(c => new Cinema(c).save());
 
 
 const bot = new TelegaBot(
