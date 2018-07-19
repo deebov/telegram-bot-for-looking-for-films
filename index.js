@@ -2,7 +2,7 @@
 This is telegram bot for looking for films
 Author: Dilshod Turobov
 Contact: deebov@yandex.com
-10.04.2018
+16.04.2018
 **/
 const TelegaBot = require('node-telegram-bot-api'),
   mongoose = require('mongoose'),
@@ -361,7 +361,7 @@ function getDistance( chatId, location )
 function toggleFavFilm(userId, queryId, {filmUUID, isFav})
 {
 
-  // Alert textx
+  // Alert text
   const answerText = isFav ? 'Удалено из избранного' : 'Добавлено в избранное';
   let userPromise;
   User.findOne({telegramId: userId}).
@@ -394,7 +394,8 @@ function toggleFavFilm(userId, queryId, {filmUUID, isFav})
 
 }
 
-function showFavFilms( chatId,userId ) {
+function showFavFilms( chatId,userId )
+{
   User.findOne({telegramId: userId}).
     then(user => {
       if(user) {
@@ -421,7 +422,8 @@ function showFavFilms( chatId,userId ) {
 
 }
 
-function showCinemas(userId, query) {
+function showCinemas(userId, query)
+{
 
   Cinema.
     find(query).
